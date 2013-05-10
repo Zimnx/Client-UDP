@@ -5,13 +5,9 @@
 #include <stdlib.h>
 #include <string.h>
 #include <arpa/inet.h>
-#include <map>
 #include <algorithm>
 #include <string>
-#include <cstring>
 #include <vector>
-#include <fstream>
-#include <sstream>
 #include "sockwrap.h"
 
 #define MAXMSG 65535
