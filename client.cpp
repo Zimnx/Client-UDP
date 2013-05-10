@@ -108,7 +108,7 @@ int main (int argc, char** argv)
                 memcpy(outbuff+ start, buffer, len);
                    
                 got++;
-                printf("done %d %% \n ",(got*100)/totalRequests);
+                printf("done %.2lf %% \n ",(got*100)/(float)totalRequests);
                 
                 deleteRequest(start);
             }
