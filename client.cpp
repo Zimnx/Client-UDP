@@ -6,7 +6,6 @@
 #include <string.h>
 #include <arpa/inet.h>
 #include <algorithm>
-#include <string>
 #include <vector>
 #include "sockwrap.h"
 
@@ -19,7 +18,7 @@ int pack = 1000; // bytes
 int requestsAtOnce = 20;
 
 int port;
-string filename;
+char* filename;
 int bytes;
 char address[] = "156.17.4.30"; // aisd.ii.uni.wroc.pl
 
@@ -31,12 +30,12 @@ int main (int argc, char** argv)
     if(argc != 4) { printf("Usage: client-udp <port> <output> <bytes>\n"); exit(1);}
 
     port = atoi(argv[1]);
-    filename = string(argv[2]);
+    filename = argv[2];
     bytes = atoi(argv[3]);
     char* outbuff = new char[bytes];
     FILE* out;
-    out = fopen(filename.c_str(),"wb");
-    if(out == NULL) {printf("Cant open %s",filename.c_str()); exit(1); }
+    out = fopen(filename,"wb");
+    if(out == NULL) {printf("Cant open %s",filename); exit(1); }
 
     int totalRequests = bytes/pack + 1;
     int sockfd = Socket(AF_INET, SOCK_DGRAM, 0);
@@ -92,9 +91,9 @@ int main (int argc, char** argv)
             Recvfrom (sockfd, buffer, MAXMSG, 0, &client_address, &len);
             char ip_address[20];
             inet_ntop (AF_INET, &client_address.sin_addr, ip_address, sizeof(ip_address));
-            string ip = string(ip_address);
+            
 
-            if(strcmp(address,ip.c_str()) == 0 && ntohs(client_address.sin_port) == port)
+            if(strcmp(address,ip_address) == 0 && ntohs(client_address.sin_port) == port)
             {
                
                 int start = 0;
