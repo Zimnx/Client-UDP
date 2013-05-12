@@ -115,7 +115,12 @@ int main (int argc, char** argv)
 
         }
     }
-    fwrite(outbuff,1,bytes,out);
+    int n = fwrite(outbuff,1,bytes,out);
+    if(n != bytes)
+    {
+        printf("Can't write %d bytes to file %s.",bytes,filename);
+        exit(1);
+    }
 
     return 0;
 
